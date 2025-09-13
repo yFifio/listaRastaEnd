@@ -1,0 +1,740 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400&display=swap");
+
+@keyframes background-pan {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    box-shadow: 0 0 5px #ffe600, 0 0 10px #ffe600, 0 0 15px #ff0000;
+  }
+  50% {
+    box-shadow: 0 0 10px #ffe600, 0 0 20px #ff0000, 0 0 25px #22c55e;
+  }
+}
+
+@keyframes task-intro {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes check-pop {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes strike-through {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+body {
+  background: #111;
+  font-family: "Poppins", Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-image: url("../assets/backgroundrasta.jpg");
+  background-size: 150%;
+  background-repeat: no-repeat;
+  animation: background-pan 40s linear infinite;
+}
+
+#to_do,
+#jah_moment {
+  max-width: 600px;
+  margin: 40px auto;
+  background: #222;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  padding: 32px 24px;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  border-image: linear-gradient(45deg, #ff0000, #ffe600, #22c55e) 1;
+  animation: glow 5s ease-in-out infinite;
+}
+
+#to_do h1 {
+  text-align: center;
+  color: #ffe600;
+  margin-bottom: 24px;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-top: 0;
+  text-shadow: 3px 3px 0px #ff0000, 6px 6px 0px #22c55e,
+    9px 9px 10px rgba(0, 0, 0, 0.5);
+}
+
+.to-do-form {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.to-do-form input[type="text"],
+.to-do-form select {
+  flex: 2;
+  padding: 10px 14px;
+  border: 1px solid #ffe600;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #111;
+  color: #ffe600;
+  transition: border 0.2s;
+}
+
+.to-do-form input[type="text"]:focus {
+  border-color: #ff0000;
+  outline: none;
+}
+
+.to-do-form select {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #ffe600;
+  border-radius: 8px;
+  background: #111;
+  font-size: 1rem;
+  color: #ffe600;
+}
+
+.form-button {
+  background: #22c55e;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0 16px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.form-button:hover {
+  background: #ff0000;
+  transform: scale(1.1);
+}
+
+.form-button:active {
+  transform: scale(1.05);
+}
+
+#tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 400px;
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ffe600 #333;
+}
+
+#tasks::-webkit-scrollbar {
+  width: 8px;
+}
+#tasks::-webkit-scrollbar-track {
+  background: #333;
+  border-radius: 10px;
+}
+#tasks::-webkit-scrollbar-thumb {
+  background-color: #ffe600;
+  border-radius: 10px;
+  border: 2px solid #333;
+}
+
+.task {
+  background: #333;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  position: relative;
+  border-left: 6px solid #ffe600;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: task-intro 0.5s ease-out forwards;
+  animation-delay: calc(var(--i, 0) * 50ms);
+  opacity: 0;
+}
+
+.task:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.task-view,
+.edit-task {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.task .progress {
+  /* 1. Esconde o checkbox padrão */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  /* 2. Estilos da nossa caixa personalizada */
+  width: 24px;
+  height: 24px;
+  border: 2px solid #ffe600; /* Amarelo Rasta */
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  margin-right: 10px;
+  flex-shrink: 0; /* Impede que o checkbox encolha */
+}
+
+.task .progress:hover {
+  border-color: #ff0000; /* Vermelho Rasta */
+  transform: scale(1.1);
+}
+
+/* 3. Estilos para quando a tarefa é concluída */
+.task .progress:checked {
+  background-color: #22c55e; /* Verde Rasta */
+  border-color: #22c55e;
+  animation: check-pop 0.4s ease;
+}
+
+/* 4. O ícone de "check" animado que aparece */
+.task .progress:checked::after {
+  content: "\f00c"; /* Código do ícone de check do Font Awesome */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  color: #fff;
+  font-size: 16px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Estilo para a descrição da tarefa concluída (riscado) */
+.task .task-description.done {
+  color: #9ca3af; /* Um cinza mais suave para melhor leitura */
+}
+
+.task .task-description {
+  flex: 2;
+  font-size: 1.08rem;
+  color: #ffe600;
+  margin: 0;
+  padding: 4px 0px;
+  width: 100%;
+  transition: color 0.4s ease;
+  position: relative; /* Necessário para a animação do risco */
+}
+
+/* Animação de riscar a tarefa */
+.task .task-description.done::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #9ca3af;
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: strike-through 0.4s 0.2s ease-out forwards;
+}
+
+.task .task-difficulty {
+  font-size: 0.95rem;
+  margin-left: 8px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 12px;
+  color: #111;
+  text-transform: capitalize;
+}
+
+.difficulty-fácil {
+  background-color: #22c55e; /* green */
+}
+.difficulty-normal {
+  background-color: #ffe600; /* yellow */
+}
+.difficulty-dificil {
+  background-color: #ff0000; /* red */
+  color: #fff;
+}
+
+.task .task-actions {
+  display: flex;
+  margin-left: auto;
+  gap: 8px;
+}
+
+.action-button {
+  background: none;
+  border: none;
+  color: #ffe600;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.edit-btn:hover {
+  color: #22c55e;
+}
+
+.action-button:hover {
+  transform: scale(1.2);
+}
+
+.delete-button:hover {
+  color: #ff0000;
+}
+
+.edit-task input[type="text"] {
+  flex: 2;
+  padding: 10px 14px;
+  border: 1px solid #ffe600;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #111;
+  color: #ffe600;
+}
+
+.edit-task select {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #ffe600;
+  border-radius: 8px;
+  background: #111;
+  font-size: 1rem;
+  color: #ffe600;
+}
+
+.confirm-button {
+  background: #22c55e;
+  color: #fff;
+}
+.confirm-button,
+.cancel-button {
+  padding: 0 14px;
+  height: 42px;
+  font-size: 1.2rem;
+  flex-shrink: 0; /* Impede que os botões encolham */
+}
+
+.confirm-button:hover {
+  background: #ffe600;
+  color: #111;
+}
+
+.cancel-button {
+  background: #ff0000;
+  color: #fff;
+}
+
+.cancel-button:hover {
+  background: #ffe600;
+  color: #111;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.user-greeting {
+  text-align: center;
+  color: #aaa;
+  margin-top: -20px;
+  margin-bottom: 32px;
+  font-size: 1.1rem;
+}
+
+.logout-button {
+  position: absolute;
+  top: 24px;
+  right: 32px;
+  background: #ff0000;
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logout-button:hover {
+  background: #ffe600;
+  color: #111;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+@media screen and (max-width: 800px) {
+  #to_do {
+    max-width: 98vw;
+    padding: 18px 6vw;
+  }
+  .logout-button {
+    top: 12px;
+    right: 12px;
+    padding: 6px 12px;
+    font-size: 0.95rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #to_do {
+    width: 98vw;
+    min-width: unset;
+    padding: 12px 2vw;
+  }
+  h1 {
+    font-size: 1.3rem;
+  }
+  .to-do-form {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .to-do-form input[type="text"],
+  .to-do-form select,
+  .to-do-form .form-button {
+    width: 100%;
+    min-width: 0;
+    font-size: 1rem;
+  }
+  .task {
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+  }
+  .task .task-description {
+    font-size: 1rem;
+    padding: 2px 0;
+  }
+  .task .task-difficulty {
+    font-size: 0.9rem;
+  }
+  .task .task-actions {
+    gap: 4px;
+  }
+  .edit-task {
+    flex-wrap: wrap; /* Permite que o formulário quebre a linha em telas pequenas */
+  }
+  .logout-button {
+    top: 8px;
+    right: 8px;
+    padding: 5px 10px;
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  #to_do {
+    padding: 4px 1vw;
+  }
+  .logout-button {
+    font-size: 0.8rem;
+    padding: 4px 6px;
+  }
+}
+
+.jah-moment-button {
+  position: fixed;
+  bottom: 24px;
+  left: 32px;
+  background: #22c55e;
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.jah-moment-button:hover {
+  background: #ffe600;
+  color: #111;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+#jah_moment {
+  max-width: 600px;
+  margin: 40px auto;
+  background: #222;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  padding: 48px 24px;
+  text-align: center;
+  position: relative;
+  background: linear-gradient(rgba(34, 34, 34, 0.95), rgba(34, 34, 34, 0.95)),
+    url("../assets/backgroundrasta.jpg");
+  background-size: 150%;
+  animation: glow 5s ease-in-out infinite, background-pan 40s linear infinite;
+}
+
+.jah-banner {
+  text-align: center;
+  color: #ffe600;
+  margin-bottom: 32px;
+  font-size: 2.8rem;
+  font-weight: 700;
+  text-shadow: 1px 1px 0 #111, 2px 2px 0 #ff0000, 3px 3px 0 #22c55e;
+}
+
+.end-meditation-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #22c55e;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+.end-meditation-button:hover {
+  background: #ffe600;
+  color: #111;
+}
+
+#music-player {
+  background: #333;
+  border-radius: 12px;
+  padding: 16px 24px;
+  margin-top: 24px;
+  border: 1px solid #ffe600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.player-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.control-button {
+  background: #22c55e;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.control-button:hover {
+  background: #ff0000;
+}
+
+.progress-container {
+  flex: 1;
+  height: 20px;
+  background: linear-gradient(to right, #f5f5dc 85%, #f4a460 85%, #daa520 100%);
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  position: relative;
+  overflow: visible;
+}
+
+.progress-bar {
+  background: linear-gradient(to right, #696969, #363636);
+  width: 0%;
+  height: 100%;
+  border-radius: 10px 0 0 10px;
+  transition: width 0.1s linear;
+  position: relative;
+}
+
+.progress-bar::after {
+  content: "";
+  position: absolute;
+  right: -4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  background: #ff4500;
+  border-radius: 50%;
+  box-shadow: 0 0 5px #ff4500, 0 0 10px #ff4500, 0 0 15px #ff8c00,
+    0 0 20px #ff8c00;
+  animation: flicker 1.5s infinite alternate;
+}
+
+.time-display {
+  color: #ffe600;
+  font-size: 0.9rem;
+  font-weight: 500;
+  min-width: 80px;
+  text-align: center;
+}
+
+@keyframes flicker {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.7;
+  }
+}
+
+/* --- Coluna de Curiosidades Rasta --- */
+#rasta-facts-sidebar {
+  position: fixed;
+  top: 0;
+  right: -300px; /* Começa escondida fora da tela */
+  width: 300px;
+  height: 100%;
+  background: #222;
+  border-left: 3px solid #ffe600;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+  transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1); /* Animação suave */
+  z-index: 1000;
+}
+
+#rasta-facts-sidebar.open {
+  right: 0; /* Mostra a coluna ao adicionar a classe 'open' */
+}
+
+#facts-handle {
+  position: absolute;
+  left: -53px; /* Posiciona o "puxador" para fora da coluna */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 70px;
+  background: #22c55e;
+  border: 3px solid #ffe600;
+  border-right: none;
+  border-radius: 15px 0 0 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: #fff;
+  transition: background 0.3s;
+}
+
+#facts-handle:hover {
+  background: #ff0000;
+}
+
+#facts-content {
+  padding: 20px;
+  color: #f0f0f0;
+  height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+#facts-content h2 {
+  color: #ffe600;
+  text-align: center;
+  margin-top: 0;
+  font-size: 1.5rem;
+  text-shadow: 1px 1px 0 #ff0000;
+}
+
+#facts-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#facts-content li {
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+  font-size: 0.95rem;
+  border-left: 3px solid #22c55e;
+  padding-left: 10px;
+}
+
+#facts-content li strong {
+  color: #ffe600;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.sidebar-footer {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #444;
+  text-align: center;
+}
+
+.bio-link {
+  display: inline-block;
+  background: #ffe600;
+  color: #111;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.bio-link:hover {
+  background: #ff0000;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* Ajustes para telas menores */
+@media (max-width: 600px) {
+  #rasta-facts-sidebar {
+    width: 280px;
+    right: -280px;
+  }
+}
