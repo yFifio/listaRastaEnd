@@ -99,4 +99,4 @@ Lucas Gozer Lopes
 Vitto Lorenzo Barboza Legnani
 
 🔗 Diagrama Entidade-Relacionamento (DER)
-O DER do projeto está disponível na pasta /DER do repositório.
+https://github.com/yFifio/listaRastaEnd/tree/main/DER
