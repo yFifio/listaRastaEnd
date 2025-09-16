@@ -12,14 +12,12 @@ class Task {
         $this->userId = $_SESSION['user_id'];
     }
 
-    // NOVO MÉTODO: Para buscar todas as dificuldades do banco
     public function getAllDifficulties() {
         $stmt = $this->pdo->query("SELECT * FROM difficulty ORDER BY id ASC");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getAllTasks() {
-        // ALTERAÇÃO: Usamos um LEFT JOIN para buscar o nome do nível (level) da dificuldade
         $sql = "SELECT
                     t.id,
                     t.user_id,
@@ -37,7 +35,6 @@ class Task {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // ALTERAÇÃO: O método agora recebe um $difficultyId (inteiro)
     public function createTask(string $description, int $difficultyId) {
         $stmt = $this->pdo->prepare("INSERT INTO tasks (user_id, description, difficulty_id) VALUES (:user_id, :description, :difficulty_id)");
         $stmt->bindParam(':user_id', $this->userId, PDO::PARAM_INT);
@@ -46,7 +43,6 @@ class Task {
         return $stmt->execute();
     }
 
-    // ALTERAÇÃO: O método agora recebe um $difficultyId (inteiro)
     public function updateTask(int $id, string $description, int $difficultyId) {
         $stmt = $this->pdo->prepare("UPDATE tasks SET description = :description, difficulty_id = :difficulty_id WHERE id = :id AND user_id = :user_id");
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);

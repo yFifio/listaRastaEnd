@@ -10,7 +10,6 @@ $(document).ready(function () {
   const currentTimeEl = $("#current-time");
   const totalTimeEl = $("#total-time");
 
-  // Função para formatar o tempo de segundos para o formato M:SS
   function formatTime(seconds) {
     if (isNaN(seconds)) {
       return "0:00";
@@ -20,7 +19,6 @@ $(document).ready(function () {
     return `${minutes}:${secs < 10 ? "0" : ""}${secs}`;
   }
 
-  // 1. Ação de Play/Pause ao clicar no botão
   playPauseBtn.on("click", function () {
     if (audioPlayer.paused) {
       audioPlayer.play();
@@ -31,7 +29,6 @@ $(document).ready(function () {
     }
   });
 
-  // 2. Atualizar a barra de progresso e o tempo conforme a música toca
   $(audioPlayer).on("timeupdate", function () {
     const { currentTime, duration } = audioPlayer;
     if (duration) {
@@ -41,12 +38,10 @@ $(document).ready(function () {
     }
   });
 
-  // 3. Carregar a duração total da música quando os metadados estiverem prontos
   $(audioPlayer).on("loadedmetadata", function () {
     totalTimeEl.text(formatTime(audioPlayer.duration));
   });
 
-  // 4. Permitir busca (seek) na música clicando na barra de progresso
   progressContainer.on("click", function (e) {
     const width = $(this).width();
     const clickX = e.offsetX;
@@ -57,7 +52,6 @@ $(document).ready(function () {
     }
   });
 
-  // 5. Resetar o ícone quando a música terminar
   $(audioPlayer).on("ended", function () {
     icon.removeClass(pauseIcon).addClass(playIcon);
   });

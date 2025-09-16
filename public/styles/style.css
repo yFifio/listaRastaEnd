@@ -201,38 +201,34 @@ body {
 }
 
 .task .progress {
-  /* 1. Esconde o checkbox padrão */
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
 
-  /* 2. Estilos da nossa caixa personalizada */
   width: 24px;
   height: 24px;
-  border: 2px solid #ffe600; /* Amarelo Rasta */
+  border: 2px solid #ffe600;
   border-radius: 6px;
   cursor: pointer;
   position: relative;
   transition: all 0.3s ease;
   margin-right: 10px;
-  flex-shrink: 0; /* Impede que o checkbox encolha */
+  flex-shrink: 0;
 }
 
 .task .progress:hover {
-  border-color: #ff0000; /* Vermelho Rasta */
+  border-color: #ff0000;
   transform: scale(1.1);
 }
 
-/* 3. Estilos para quando a tarefa é concluída */
 .task .progress:checked {
-  background-color: #22c55e; /* Verde Rasta */
+  background-color: #22c55e;
   border-color: #22c55e;
   animation: check-pop 0.4s ease;
 }
 
-/* 4. O ícone de "check" animado que aparece */
 .task .progress:checked::after {
-  content: "\f00c"; /* Código do ícone de check do Font Awesome */
+  content: "\f00c";
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
   color: #fff;
@@ -243,9 +239,8 @@ body {
   transform: translate(-50%, -50%);
 }
 
-/* Estilo para a descrição da tarefa concluída (riscado) */
 .task .task-description.done {
-  color: #9ca3af; /* Um cinza mais suave para melhor leitura */
+  color: #9ca3af;
 }
 
 .task .task-description {
@@ -256,10 +251,9 @@ body {
   padding: 4px 0px;
   width: 100%;
   transition: color 0.4s ease;
-  position: relative; /* Necessário para a animação do risco */
+  position: relative;
 }
 
-/* Animação de riscar a tarefa */
 .task .task-description.done::before {
   content: "";
   position: absolute;
@@ -284,13 +278,13 @@ body {
 }
 
 .difficulty-fácil {
-  background-color: #22c55e; /* green */
+  background-color: #22c55e;
 }
 .difficulty-normal {
-  background-color: #ffe600; /* yellow */
+  background-color: #ffe600;
 }
 .difficulty-dificil {
-  background-color: #ff0000; /* red */
+  background-color: #ff0000;
   color: #fff;
 }
 
@@ -350,7 +344,7 @@ body {
   padding: 0 14px;
   height: 42px;
   font-size: 1.2rem;
-  flex-shrink: 0; /* Impede que os botões encolham */
+  flex-shrink: 0;
 }
 
 .confirm-button:hover {
@@ -455,7 +449,7 @@ body {
     gap: 4px;
   }
   .edit-task {
-    flex-wrap: wrap; /* Permite que o formulário quebre a linha em telas pequenas */
+    flex-wrap: wrap;
   }
   .logout-button {
     top: 8px;
@@ -731,7 +725,6 @@ body {
   transform: scale(1.05);
 }
 
-/* Ajustes para telas menores */
 @media (max-width: 600px) {
   #rasta-facts-sidebar {
     width: 280px;
