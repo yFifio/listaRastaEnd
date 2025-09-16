@@ -30,7 +30,7 @@ Abra o terminal na pasta htdocs do seu XAMPP (ex: C:/xampp/htdocs) e execute o c
 
 Bash
 
-git clone [URL_DO_SEU_REPOSITORIO_AQUI]
+git clone https://github.com/yFifio/listaRastaEnd.git
 2. Configurar o Banco de Dados
 
 Inicie os módulos Apache e MySQL no seu painel de controle do XAMPP.
